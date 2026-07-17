@@ -27,7 +27,7 @@ if TYPE_CHECKING:
     from polars._typing import IntoExpr
 
 __all__ = ["MHCINameSpace", "classify", "loci", "model_dir", "score", "__version__"]
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 _PLUGIN_PATH = Path(__file__).parent
 _MODEL_DIR = _PLUGIN_PATH / "models"

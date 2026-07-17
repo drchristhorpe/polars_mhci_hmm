@@ -7,6 +7,29 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [0.1.1] — 2026-07-17
+
+Documentation and metadata only. **No code changes** — the extension is byte-for-byte the same as
+0.1.0, and there is no reason to upgrade except to read a PyPI page whose links work.
+
+This release exists because PyPI freezes a project's description and metadata into the uploaded
+distribution at release time and never re-reads the repository. The fixes below landed *after* the
+0.1.0 tag, so they were live on GitHub but absent from the page most people actually see — and
+since PyPI does not permit editing or re-uploading an existing version, a new version number is
+the only way to publish them.
+
+### Fixed
+
+- **Four links 404'd on the PyPI page.** PyPI renders the README but does not rewrite relative
+  links, so the licence badge, `PLAN.md`, `RELEASING.md` and `LICENSE` all resolved against
+  `pypi.org` instead of the repository. They worked on GitHub, which is exactly why they were easy
+  to miss. Now absolute, which works identically on both.
+- **The Python badge undersold the package.** CI tests 3.12 and 3.14, but the classifier list
+  stopped at 3.13 — and the `pyversions` badge is built from those classifiers, so it advertised
+  3.10–3.13 for a package actively tested on 3.14.
+
+---
+
 ## [0.1.0] — 2026-07-17
 
 The initial release. `polars-mhci-hmm` reimplements
