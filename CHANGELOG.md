@@ -7,9 +7,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## [Unreleased]
+## [0.1.0] — 2026-07-17
 
-The initial build. `polars-mhci-hmm` reimplements
+The initial release. `polars-mhci-hmm` reimplements
 [`histo_hmm`](https://github.com/drchristhorpe/histo_hmm)'s MHC Class I classification as a
 native Polars expression plugin, laid out after
 [`polars-seq`](https://github.com/drchristhorpe/polars-seq). Classification only — training
