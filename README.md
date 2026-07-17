@@ -3,7 +3,7 @@
 [![CI](https://github.com/drchristhorpe/polars_mhci_hmm/actions/workflows/ci.yml/badge.svg)](https://github.com/drchristhorpe/polars_mhci_hmm/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/polars-mhci-hmm)](https://pypi.org/project/polars-mhci-hmm/)
 [![Python](https://img.shields.io/pypi/pyversions/polars-mhci-hmm)](https://pypi.org/project/polars-mhci-hmm/)
-[![Licence](https://img.shields.io/badge/licence-MIT-blue)](LICENSE)
+[![Licence](https://img.shields.io/badge/licence-MIT-blue)](https://github.com/drchristhorpe/polars_mhci_hmm/blob/master/LICENSE)
 
 Classify MHC Class I protein sequences inside Polars.
 
@@ -163,7 +163,7 @@ and the *ordering* of loci exactly, and the floats to 1e-9 / 1e-12.
 
 Reimplementing numpy's internal pairwise summation would close the last few ULPs, at the cost of
 pinning this package to an implementation detail that is not part of numpy's API. That trade
-wasn't worth it. See [PLAN.md](PLAN.md) §5.1.
+wasn't worth it. See [PLAN.md](https://github.com/drchristhorpe/polars_mhci_hmm/blob/master/PLAN.md) §5.1.
 
 ---
 
@@ -221,7 +221,7 @@ slow one — it is slow because it runs *the reference's* scanner.
 left out of the resolution and the parity tests skip; the golden tests still run, so the suite
 stays meaningful. Use 3.12+ if you want parity.
 
-Releases are automated — push a `v*` tag. See [RELEASING.md](RELEASING.md).
+Releases are automated — push a `v*` tag. See [RELEASING.md](https://github.com/drchristhorpe/polars_mhci_hmm/blob/master/RELEASING.md).
 
 To re-sync the models after retraining them in `histo_hmm`:
 
@@ -252,4 +252,4 @@ not offer itself as an alternative citation.
 
 ## Licence
 
-MIT. See [LICENSE](LICENSE).
+MIT. See [LICENSE](https://github.com/drchristhorpe/polars_mhci_hmm/blob/master/LICENSE).
