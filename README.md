@@ -1,5 +1,10 @@
 # polars-mhci-hmm
 
+[![CI](https://github.com/drchristhorpe/polars_mhci_hmm/actions/workflows/ci.yml/badge.svg)](https://github.com/drchristhorpe/polars_mhci_hmm/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/polars-mhci-hmm)](https://pypi.org/project/polars-mhci-hmm/)
+[![Python](https://img.shields.io/pypi/pyversions/polars-mhci-hmm)](https://pypi.org/project/polars-mhci-hmm/)
+[![Licence](https://img.shields.io/badge/licence-MIT-blue)](LICENSE)
+
 Classify MHC Class I protein sequences inside Polars.
 
 A native Polars expression plugin that reproduces
@@ -211,6 +216,12 @@ uv run pytest
 `uv sync` installs `histo_hmm` from git as a dev dependency, which is what the parity tests
 compare against. `uv run pytest -m "not slow"` skips the construct-scan parity test, the only
 slow one — it is slow because it runs *the reference's* scanner.
+
+`histo_hmm` needs Python ≥ 3.12, while this package supports ≥ 3.10. On 3.10 or 3.11 it is simply
+left out of the resolution and the parity tests skip; the golden tests still run, so the suite
+stays meaningful. Use 3.12+ if you want parity.
+
+Releases are automated — push a `v*` tag. See [RELEASING.md](RELEASING.md).
 
 To re-sync the models after retraining them in `histo_hmm`:
 

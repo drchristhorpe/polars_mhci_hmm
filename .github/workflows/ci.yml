@@ -63,29 +63,33 @@ jobs:
         run: uv run --with maturin maturin build --release -o dist
 
       - name: Install it on 3.10 with only polars alongside
+        # A separate venv from the project's `.venv`, which the build step above already created:
+        # this one is deliberately the bare environment a user on the floor would have.
         run: |
-          uv venv --python 3.10
-          uv pip install --python .venv polars pytest
-          uv pip install --python .venv --no-deps --no-index --find-links dist polars-mhci-hmm
+          uv venv --python 3.10 floorenv
+          uv pip install --python floorenv polars pytest
+          uv pip install --python floorenv --no-deps --no-index --find-links dist polars-mhci-hmm
 
       - name: Fail if histo_hmm or numpy came along
         run: |
-          if .venv/bin/python -c "import histo_hmm" 2>/dev/null; then
+          if floorenv/bin/python -c "import histo_hmm" 2>/dev/null; then
             echo "::error::the wheel pulled in histo_hmm; it must depend on polars alone"
             exit 1
           fi
-          if .venv/bin/python -c "import numpy" 2>/dev/null; then
+          if floorenv/bin/python -c "import numpy" 2>/dev/null; then
             echo "::error::the wheel pulled in numpy; it must depend on polars alone"
             exit 1
           fi
 
       - name: Run the suite (parity tests skip; golden tests must not)
         run: |
-          .venv/bin/python -m pytest -q | tee out.txt
-          # A green run that skipped *everything* would prove nothing, so assert the golden and
-          # integration tests actually ran.
-          if ! grep -qE "[0-9]+ passed" out.txt; then
-            echo "::error::no tests passed on the abi3 floor"
+          floorenv/bin/python -m pytest -q | tee out.txt
+          # A green run that skipped *everything* would prove nothing, so assert a healthy number
+          # of tests actually ran: on the floor only the ~17 parity tests should skip.
+          passed=$(grep -oE "[0-9]+ passed" out.txt | grep -oE "[0-9]+" || echo 0)
+          echo "passed on the floor: $passed"
+          if [ "${passed:-0}" -lt 50 ]; then
+            echo "::error::only $passed tests passed on the abi3 floor; expected 60+"
             exit 1
           fi
 
