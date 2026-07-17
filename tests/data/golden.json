@@ -1,0 +1,1450 @@
+{
+  "note": "Expected classifications, generated from histo_hmm against this repo's vendored models. Regenerate with tools/make_golden.py; a non-empty diff means the reference or the models changed.",
+  "generated_from": {
+    "histo_hmm_version": "0.1.0",
+    "models_commit": "5cf4329cc80e53c2c6f1e7dc280559682a70441a",
+    "n_top": 5
+  },
+  "cases": [
+    {
+      "name": "hla_a_0",
+      "kind": "class_i",
+      "expected_locus": "hla_a",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 754.1446216712424,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_a",
+          "probability": 0.7988803499517707
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.034481936281038815
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.03224723703646719
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.023251594643708396
+        },
+        {
+          "locus": "mafa_a1",
+          "probability": 0.014470536764340272
+        }
+      ]
+    },
+    {
+      "name": "hla_a_1",
+      "kind": "class_i",
+      "expected_locus": "hla_a",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 755.2979264751709,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_a",
+          "probability": 0.9239848962283737
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.009444083196541548
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.008461397267164512
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.008335666127475383
+        },
+        {
+          "locus": "mafa_a1",
+          "probability": 0.006308326806475032
+        }
+      ]
+    },
+    {
+      "name": "hla_a_2",
+      "kind": "class_i",
+      "expected_locus": "hla_a",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 757.2855857198974,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_a",
+          "probability": 0.926540304688852
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.009056840420112714
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.008186947101668292
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.008118146191697274
+        },
+        {
+          "locus": "mafa_a1",
+          "probability": 0.0062080803918284026
+        }
+      ]
+    },
+    {
+      "name": "hla_b_0",
+      "kind": "class_i",
+      "expected_locus": "hla_b",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 740.3685734052448,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_b",
+          "probability": 0.6436217471565169
+        },
+        {
+          "locus": "patr_b",
+          "probability": 0.05432353045864995
+        },
+        {
+          "locus": "mafa_a1",
+          "probability": 0.039879550024605026
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.036981602584790794
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.03576049410171042
+        }
+      ]
+    },
+    {
+      "name": "hla_b_1",
+      "kind": "class_i",
+      "expected_locus": "hla_b",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 746.9417630893454,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_b",
+          "probability": 0.646353381385648
+        },
+        {
+          "locus": "hla_c",
+          "probability": 0.04888902897798834
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.04172096322000291
+        },
+        {
+          "locus": "patr_b",
+          "probability": 0.03991403678208179
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.03918146377778385
+        }
+      ]
+    },
+    {
+      "name": "hla_b_2",
+      "kind": "class_i",
+      "expected_locus": "hla_b",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 758.8702499184161,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_b",
+          "probability": 0.7135030853964798
+        },
+        {
+          "locus": "mafa_a1",
+          "probability": 0.04210202540217688
+        },
+        {
+          "locus": "mamu_a1",
+          "probability": 0.036312544021163996
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.0350150488075906
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.03185478318017933
+        }
+      ]
+    },
+    {
+      "name": "hla_c_0",
+      "kind": "class_i",
+      "expected_locus": "hla_c",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 752.6735135326765,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_c",
+          "probability": 0.6975580849584397
+        },
+        {
+          "locus": "hla_b",
+          "probability": 0.04713748198519615
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.040318511029790005
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.03923898273182492
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.031358774337349425
+        }
+      ]
+    },
+    {
+      "name": "hla_c_1",
+      "kind": "class_i",
+      "expected_locus": "hla_c",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 752.1810914048225,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_c",
+          "probability": 0.7720062131967131
+        },
+        {
+          "locus": "hla_b",
+          "probability": 0.03349803214428027
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.027750415873330117
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.027264855047874317
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.021007965565846762
+        }
+      ]
+    },
+    {
+      "name": "hla_c_2",
+      "kind": "class_i",
+      "expected_locus": "hla_c",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 742.3119975056479,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_c",
+          "probability": 0.8276676318624507
+        },
+        {
+          "locus": "hla_b",
+          "probability": 0.031458614612363676
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.017371910462126734
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.017147994802414423
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.01495609108640858
+        }
+      ]
+    },
+    {
+      "name": "hla_e_0",
+      "kind": "class_i",
+      "expected_locus": "hla_e",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 743.819396318374,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_e",
+          "probability": 0.9861587339491364
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.0016009177666370647
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.0013834275454947683
+        },
+        {
+          "locus": "paan_b",
+          "probability": 0.001267912721504492
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.0011957781957968767
+        }
+      ]
+    },
+    {
+      "name": "hla_e_1",
+      "kind": "class_i",
+      "expected_locus": "hla_e",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 743.6495105901904,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_e",
+          "probability": 0.9835166259533948
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.0019453005616176533
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.0017141229613839438
+        },
+        {
+          "locus": "paan_b",
+          "probability": 0.0016390567883855039
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.001554270970651695
+        }
+      ]
+    },
+    {
+      "name": "hla_e_2",
+      "kind": "class_i",
+      "expected_locus": "hla_e",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 745.2703253954467,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_e",
+          "probability": 0.9874228274621332
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.0014575810577061065
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.001262324086901304
+        },
+        {
+          "locus": "paan_b",
+          "probability": 0.0011816804265057197
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.0010845121551366953
+        }
+      ]
+    },
+    {
+      "name": "mamu_a1_0",
+      "kind": "class_i",
+      "expected_locus": "mamu_a1",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 707.659433560341,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "mafa_a1",
+          "probability": 0.32702734307631337
+        },
+        {
+          "locus": "mamu_a1",
+          "probability": 0.2432616349782287
+        },
+        {
+          "locus": "mane_a1",
+          "probability": 0.06556873300530086
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.05752656067820315
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.05459167133928487
+        }
+      ]
+    },
+    {
+      "name": "mamu_a1_1",
+      "kind": "class_i",
+      "expected_locus": "mamu_a1",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 727.921293267648,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "mafa_a1",
+          "probability": 0.3310399069596199
+        },
+        {
+          "locus": "mamu_a1",
+          "probability": 0.23933212696942385
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.06965299665417782
+        },
+        {
+          "locus": "mane_a1",
+          "probability": 0.06498881553002377
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.06293790491477347
+        }
+      ]
+    },
+    {
+      "name": "mamu_a1_2",
+      "kind": "class_i",
+      "expected_locus": "mamu_a1",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 696.844625964186,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "mafa_a1",
+          "probability": 0.2849671512669681
+        },
+        {
+          "locus": "mamu_a1",
+          "probability": 0.23141485559535196
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.07994153113057624
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.07846663268158043
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.06350115267575282
+        }
+      ]
+    },
+    {
+      "name": "mamu_b_0",
+      "kind": "class_i",
+      "expected_locus": "mamu_b",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 712.2967855028475,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "mafa_b",
+          "probability": 0.32358885141865484
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.2707263272516026
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.16579790193476102
+        },
+        {
+          "locus": "paan_b",
+          "probability": 0.08629682403709678
+        },
+        {
+          "locus": "ceat_b",
+          "probability": 0.04752114116133833
+        }
+      ]
+    },
+    {
+      "name": "mamu_b_1",
+      "kind": "class_i",
+      "expected_locus": "mamu_b",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 698.6822242413705,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "mafa_b",
+          "probability": 0.3107209756830769
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.28546562361844857
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.1830704165675536
+        },
+        {
+          "locus": "paan_b",
+          "probability": 0.07183714479439081
+        },
+        {
+          "locus": "ceat_b",
+          "probability": 0.050786520080363017
+        }
+      ]
+    },
+    {
+      "name": "mamu_b_2",
+      "kind": "class_i",
+      "expected_locus": "mamu_b",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 697.5607889270498,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "mafa_b",
+          "probability": 0.3160059119669916
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.29610643218590577
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.1595627980698516
+        },
+        {
+          "locus": "paan_b",
+          "probability": 0.07744906993979454
+        },
+        {
+          "locus": "ceat_b",
+          "probability": 0.044430995402672514
+        }
+      ]
+    },
+    {
+      "name": "patr_a_0",
+      "kind": "class_i",
+      "expected_locus": "patr_a",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 744.8517904316246,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_a",
+          "probability": 0.7316305339305805
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.03763484026030614
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.0369186759807813
+        },
+        {
+          "locus": "patr_a",
+          "probability": 0.02977180568783771
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.023233384000070863
+        }
+      ]
+    },
+    {
+      "name": "patr_a_1",
+      "kind": "class_i",
+      "expected_locus": "patr_a",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 688.5137899035312,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_a",
+          "probability": 0.45584255791872935
+        },
+        {
+          "locus": "patr_a",
+          "probability": 0.08994041068992067
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.05604018864212987
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.05529725389139122
+        },
+        {
+          "locus": "mafa_a1",
+          "probability": 0.046656761943405164
+        }
+      ]
+    },
+    {
+      "name": "patr_a_2",
+      "kind": "class_i",
+      "expected_locus": "patr_a",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 724.1250448764747,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_a",
+          "probability": 0.554866574283926
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.07359579673873543
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.07162998084388855
+        },
+        {
+          "locus": "patr_a",
+          "probability": 0.047303594158567004
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.04430430222130943
+        }
+      ]
+    },
+    {
+      "name": "gogo_b_0",
+      "kind": "class_i",
+      "expected_locus": "gogo_b",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 650.4527470522012,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_b",
+          "probability": 0.14651562513681038
+        },
+        {
+          "locus": "mafa_a1",
+          "probability": 0.12369652671743178
+        },
+        {
+          "locus": "hla_c",
+          "probability": 0.11004442826260616
+        },
+        {
+          "locus": "mamu_a1",
+          "probability": 0.09239737623945474
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.07817596821316092
+        }
+      ]
+    },
+    {
+      "name": "gogo_b_1",
+      "kind": "class_i",
+      "expected_locus": "gogo_b",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 635.0978254577935,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "mamu_b",
+          "probability": 0.1467690505023092
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.13673546741713705
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.11921671576789764
+        },
+        {
+          "locus": "paan_b",
+          "probability": 0.07695320311750786
+        },
+        {
+          "locus": "mafa_a1",
+          "probability": 0.06766581125956538
+        }
+      ]
+    },
+    {
+      "name": "gogo_b_2",
+      "kind": "class_i",
+      "expected_locus": "gogo_b",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 697.8201121404404,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "hla_b",
+          "probability": 0.3387732678934444
+        },
+        {
+          "locus": "mafa_b",
+          "probability": 0.08543230944922311
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.0814190351324135
+        },
+        {
+          "locus": "patr_b",
+          "probability": 0.07840469598007102
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.060786076700655264
+        }
+      ]
+    },
+    {
+      "name": "h2_k_0",
+      "kind": "class_i",
+      "expected_locus": "h2_k",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 484.0687845346364,
+      "region_start": 0,
+      "region_end": 274,
+      "top_loci": [
+        {
+          "locus": "mane_b",
+          "probability": 0.10892786706283832
+        },
+        {
+          "locus": "paan_b",
+          "probability": 0.09272289958310276
+        },
+        {
+          "locus": "ceat_b",
+          "probability": 0.08837329755154992
+        },
+        {
+          "locus": "chpy_b",
+          "probability": 0.07723185988757643
+        },
+        {
+          "locus": "chsa_b",
+          "probability": 0.07082406840025784
+        }
+      ]
+    },
+    {
+      "name": "h2_k_1",
+      "kind": "class_i",
+      "expected_locus": "h2_k",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 471.45621719148534,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "paan_b",
+          "probability": 0.08903512984872052
+        },
+        {
+          "locus": "chpy_b",
+          "probability": 0.08513975554280558
+        },
+        {
+          "locus": "ceat_b",
+          "probability": 0.07835989863231406
+        },
+        {
+          "locus": "chsa_b",
+          "probability": 0.07410243061356142
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.07359414915723633
+        }
+      ]
+    },
+    {
+      "name": "h2_k_2",
+      "kind": "class_i",
+      "expected_locus": "h2_k",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 496.01770889357795,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "paan_b",
+          "probability": 0.10505152949628549
+        },
+        {
+          "locus": "ceat_b",
+          "probability": 0.09834875449479047
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.07820580367313575
+        },
+        {
+          "locus": "chpy_b",
+          "probability": 0.07560878306094465
+        },
+        {
+          "locus": "chsa_b",
+          "probability": 0.06555835186838728
+        }
+      ]
+    },
+    {
+      "name": "h2_d_0",
+      "kind": "class_i",
+      "expected_locus": "h2_d",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 494.2439266393439,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "mane_b",
+          "probability": 0.11256866978255325
+        },
+        {
+          "locus": "paan_b",
+          "probability": 0.1030564757843531
+        },
+        {
+          "locus": "chpy_b",
+          "probability": 0.09395966578738452
+        },
+        {
+          "locus": "ceat_b",
+          "probability": 0.09351823195241521
+        },
+        {
+          "locus": "mamu_b",
+          "probability": 0.08136448197136045
+        }
+      ]
+    },
+    {
+      "name": "h2_d_1",
+      "kind": "class_i",
+      "expected_locus": "h2_d",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 486.5489453427214,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "chpy_b",
+          "probability": 0.09060853371902174
+        },
+        {
+          "locus": "paan_b",
+          "probability": 0.08652589952327655
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.08469144539057546
+        },
+        {
+          "locus": "chsa_b",
+          "probability": 0.08211666154639467
+        },
+        {
+          "locus": "ceat_b",
+          "probability": 0.0788611327964904
+        }
+      ]
+    },
+    {
+      "name": "h2_d_2",
+      "kind": "class_i",
+      "expected_locus": "h2_d",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 499.8628986717327,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "mane_b",
+          "probability": 0.10025559142234788
+        },
+        {
+          "locus": "paan_b",
+          "probability": 0.09026547359789093
+        },
+        {
+          "locus": "chpy_b",
+          "probability": 0.0888833765677208
+        },
+        {
+          "locus": "ceat_b",
+          "probability": 0.08299793896137345
+        },
+        {
+          "locus": "chsa_b",
+          "probability": 0.0739027070161999
+        }
+      ]
+    },
+    {
+      "name": "bola_1_0",
+      "kind": "class_i",
+      "expected_locus": "bola_1",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 579.3482994634265,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "bola_2",
+          "probability": 0.17931962472932703
+        },
+        {
+          "locus": "bola_3",
+          "probability": 0.07231952715699612
+        },
+        {
+          "locus": "ovar_n",
+          "probability": 0.05585666649460935
+        },
+        {
+          "locus": "mafa_a1",
+          "probability": 0.05185828000318186
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.05144003680729718
+        }
+      ]
+    },
+    {
+      "name": "bola_1_1",
+      "kind": "class_i",
+      "expected_locus": "bola_1",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 590.647547705781,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "bola_2",
+          "probability": 0.2607543105929917
+        },
+        {
+          "locus": "bola_3",
+          "probability": 0.056758495063290275
+        },
+        {
+          "locus": "sla_2",
+          "probability": 0.05082343750257611
+        },
+        {
+          "locus": "sla_1",
+          "probability": 0.04839824840017864
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.045960857241336646
+        }
+      ]
+    },
+    {
+      "name": "bola_1_2",
+      "kind": "class_i",
+      "expected_locus": "bola_1",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 592.962300934327,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "bola_2",
+          "probability": 0.29791698262016797
+        },
+        {
+          "locus": "sla_2",
+          "probability": 0.05602742701346506
+        },
+        {
+          "locus": "sla_1",
+          "probability": 0.054398556793704755
+        },
+        {
+          "locus": "bola_3",
+          "probability": 0.048176418428113356
+        },
+        {
+          "locus": "mamu_a1",
+          "probability": 0.04397767365803267
+        }
+      ]
+    },
+    {
+      "name": "sla_1_0",
+      "kind": "class_i",
+      "expected_locus": "sla_1",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 681.0099022012473,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "sla_1",
+          "probability": 0.6026590448864464
+        },
+        {
+          "locus": "sla_2",
+          "probability": 0.3770203095122976
+        },
+        {
+          "locus": "sla_3",
+          "probability": 0.008070480666561946
+        },
+        {
+          "locus": "bola_2",
+          "probability": 0.001103577750627187
+        },
+        {
+          "locus": "paan_b",
+          "probability": 0.0008625968639942404
+        }
+      ]
+    },
+    {
+      "name": "sla_1_1",
+      "kind": "class_i",
+      "expected_locus": "sla_1",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 688.4160908697054,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "sla_1",
+          "probability": 0.6726354597452225
+        },
+        {
+          "locus": "sla_2",
+          "probability": 0.30965919399107844
+        },
+        {
+          "locus": "sla_3",
+          "probability": 0.006419735016465629
+        },
+        {
+          "locus": "bola_2",
+          "probability": 0.0013550627972571958
+        },
+        {
+          "locus": "paan_b",
+          "probability": 0.0009244280897852568
+        }
+      ]
+    },
+    {
+      "name": "sla_1_2",
+      "kind": "class_i",
+      "expected_locus": "sla_1",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 678.1648193526642,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "sla_1",
+          "probability": 0.48882824794795865
+        },
+        {
+          "locus": "sla_2",
+          "probability": 0.4666564034320418
+        },
+        {
+          "locus": "sla_3",
+          "probability": 0.018004882306017732
+        },
+        {
+          "locus": "bola_2",
+          "probability": 0.0026666488366187506
+        },
+        {
+          "locus": "mane_b",
+          "probability": 0.00207590447761429
+        }
+      ]
+    },
+    {
+      "name": "gaga_bf1_0",
+      "kind": "class_i",
+      "expected_locus": "gaga_bf1",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 490.3597893206509,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "gaga_bf2",
+          "probability": 0.7403104160982065
+        },
+        {
+          "locus": "gaga_bf1",
+          "probability": 0.25959069701733395
+        },
+        {
+          "locus": "chae_b",
+          "probability": 3.247752360204247e-06
+        },
+        {
+          "locus": "malo_b",
+          "probability": 3.198223231785356e-06
+        },
+        {
+          "locus": "math_b",
+          "probability": 3.0435627218153697e-06
+        }
+      ]
+    },
+    {
+      "name": "gaga_bf1_1",
+      "kind": "class_i",
+      "expected_locus": "gaga_bf1",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 493.83249635202753,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "gaga_bf2",
+          "probability": 0.5513891820896215
+        },
+        {
+          "locus": "gaga_bf1",
+          "probability": 0.44853278063093616
+        },
+        {
+          "locus": "chae_b",
+          "probability": 3.114862416595821e-06
+        },
+        {
+          "locus": "malo_b",
+          "probability": 2.775126252503189e-06
+        },
+        {
+          "locus": "math_b",
+          "probability": 2.661082318159402e-06
+        }
+      ]
+    },
+    {
+      "name": "gaga_bf1_2",
+      "kind": "class_i",
+      "expected_locus": "gaga_bf1",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 490.6489312417014,
+      "region_start": 0,
+      "region_end": 275,
+      "top_loci": [
+        {
+          "locus": "gaga_bf2",
+          "probability": 0.5205886673696258
+        },
+        {
+          "locus": "gaga_bf1",
+          "probability": 0.4793108842165844
+        },
+        {
+          "locus": "chae_b",
+          "probability": 4.032215883241094e-06
+        },
+        {
+          "locus": "malo_b",
+          "probability": 3.5868581921654042e-06
+        },
+        {
+          "locus": "math_b",
+          "probability": 3.4112897656729896e-06
+        }
+      ]
+    },
+    {
+      "name": "sasa_uba_0",
+      "kind": "class_i",
+      "expected_locus": "sasa_uba",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 308.8144824710032,
+      "region_start": 0,
+      "region_end": 274,
+      "top_loci": [
+        {
+          "locus": "sasa_uba",
+          "probability": 0.9709355726813983
+        },
+        {
+          "locus": "onmy_uba",
+          "probability": 0.005517015298941821
+        },
+        {
+          "locus": "gaga_bf2",
+          "probability": 0.0012003061657074048
+        },
+        {
+          "locus": "gaga_bf1",
+          "probability": 0.0010699192469766075
+        },
+        {
+          "locus": "bola_1",
+          "probability": 0.0005054631562310159
+        }
+      ]
+    },
+    {
+      "name": "sasa_uba_1",
+      "kind": "class_i",
+      "expected_locus": "sasa_uba",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 366.2682231398051,
+      "region_start": 0,
+      "region_end": 274,
+      "top_loci": [
+        {
+          "locus": "sasa_uba",
+          "probability": 0.9955564593269823
+        },
+        {
+          "locus": "onmy_uba",
+          "probability": 0.0011020994527086423
+        },
+        {
+          "locus": "gaga_bf2",
+          "probability": 0.00022620819110716426
+        },
+        {
+          "locus": "gaga_bf1",
+          "probability": 0.00015679530846379785
+        },
+        {
+          "locus": "sla_3",
+          "probability": 8.432875392788308e-05
+        }
+      ]
+    },
+    {
+      "name": "sasa_uba_2",
+      "kind": "class_i",
+      "expected_locus": "sasa_uba",
+      "is_class_i": true,
+      "confidence": 1.0,
+      "best_score": 360.45251788457466,
+      "region_start": 0,
+      "region_end": 274,
+      "top_loci": [
+        {
+          "locus": "sasa_uba",
+          "probability": 0.9950505306681545
+        },
+        {
+          "locus": "onmy_uba",
+          "probability": 0.0011581739124917293
+        },
+        {
+          "locus": "gaga_bf2",
+          "probability": 0.0002347726875329153
+        },
+        {
+          "locus": "gaga_bf1",
+          "probability": 0.00015406973894294173
+        },
+        {
+          "locus": "sla_3",
+          "probability": 9.973763766746469e-05
+        }
+      ]
+    },
+    {
+      "name": "ubiquitin",
+      "kind": "negative",
+      "expected_locus": null,
+      "is_class_i": false,
+      "confidence": 1.928749847963918e-22,
+      "best_score": -129.42501735811052,
+      "region_start": 0,
+      "region_end": 76,
+      "top_loci": [
+        {
+          "locus": "mamu_ag1",
+          "probability": 0.008749408236615635
+        },
+        {
+          "locus": "papa_a",
+          "probability": 0.008713455159826045
+        },
+        {
+          "locus": "mamu_ag3",
+          "probability": 0.008203093353617552
+        },
+        {
+          "locus": "ceat_a1",
+          "probability": 0.008199414167461457
+        },
+        {
+          "locus": "gogo_b",
+          "probability": 0.008198862902579944
+        }
+      ]
+    },
+    {
+      "name": "b2m",
+      "kind": "negative",
+      "expected_locus": null,
+      "is_class_i": false,
+      "confidence": 1.928749847963918e-22,
+      "best_score": -94.76876591422615,
+      "region_start": 0,
+      "region_end": 119,
+      "top_loci": [
+        {
+          "locus": "hla_f",
+          "probability": 0.01185426604338282
+        },
+        {
+          "locus": "bola_6",
+          "probability": 0.011571312358939293
+        },
+        {
+          "locus": "gaga_bf1",
+          "probability": 0.010712891919943037
+        },
+        {
+          "locus": "bola_nc1",
+          "probability": 0.010655723509835483
+        },
+        {
+          "locus": "gaga_bf2",
+          "probability": 0.0104970248901047
+        }
+      ]
+    },
+    {
+      "name": "lysozyme",
+      "kind": "negative",
+      "expected_locus": null,
+      "is_class_i": false,
+      "confidence": 1.928749847963918e-22,
+      "best_score": -77.3798692552964,
+      "region_start": 0,
+      "region_end": 147,
+      "top_loci": [
+        {
+          "locus": "eqca_2",
+          "probability": 0.013712915087448126
+        },
+        {
+          "locus": "popy_a",
+          "probability": 0.011632148243365982
+        },
+        {
+          "locus": "sla_6",
+          "probability": 0.011405556861018311
+        },
+        {
+          "locus": "gogo_a",
+          "probability": 0.011256614460632206
+        },
+        {
+          "locus": "atfu_g",
+          "probability": 0.011002567004128171
+        }
+      ]
+    }
+  ]
+}

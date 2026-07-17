@@ -1,0 +1,71 @@
+[build-system]
+requires = ["maturin>=1.7,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "polars-mhci-hmm"
+version = "0.1.0"
+description = "Polars expression plugin for MHC Class I profile-HMM classification, reproducing histo_hmm's outputs"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Chris Thorpe", email = "drchristhorpe@googlemail.com" }]
+keywords = [
+    "polars",
+    "bioinformatics",
+    "mhc",
+    "hla",
+    "immunology",
+    "hmm",
+    "profile-hmm",
+    "viterbi",
+    "classification",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Typing :: Typed",
+]
+dependencies = ["polars>=1.0"]
+
+[project.urls]
+Homepage = "https://github.com/drchristhorpe/polars_mhci_hmm"
+Repository = "https://github.com/drchristhorpe/polars_mhci_hmm"
+Changelog = "https://github.com/drchristhorpe/polars_mhci_hmm/blob/master/CHANGELOG.md"
+Issues = "https://github.com/drchristhorpe/polars_mhci_hmm/issues"
+
+[tool.maturin]
+python-source = "python"
+module-name = "polars_mhci_hmm._internal"
+features = ["pyo3/extension-module"]
+include = [{ path = "python/polars_mhci_hmm/models/**/*", format = ["sdist", "wheel"] }]
+strip = true
+
+[dependency-groups]
+dev = [
+    "histo-hmm",
+    "numpy>=2.0",
+    "pytest>=8",
+    "maturin>=1.7",
+]
+
+[tool.uv.sources]
+histo-hmm = { git = "https://github.com/drchristhorpe/histo_hmm" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    # The construct-scan parity test runs histo_hmm's scanner, which takes ~20s per sequence.
+    # Deselect with: -m "not slow"
+    "slow: takes tens of seconds because it runs the reference's sliding-window scan",
+]

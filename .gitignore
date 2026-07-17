@@ -1,0 +1,55 @@
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+wheels/
+*.whl
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# Compiled extension modules (maturin builds these in-place into python/polars_mhci_hmm/)
+*.so
+*.pyd
+*.dylib
+
+# ---------- Virtual environments ----------
+.venv/
+venv/
+env/
+
+# ---------- uv ----------
+uv.lock
+
+# ---------- Rust ----------
+/target/
+**/*.rs.bk
+*.pdb
+
+# ---------- Project data & scratch ----------
+# Test and validation outputs, written for manual inspection. Ignore the contents but keep the
+# directory: `tmp/*` rather than `tmp/`, because git does not descend into an excluded directory,
+# so a `!tmp/.gitkeep` negation under `tmp/` would never be reached.
+tmp/*
+!tmp/.gitkeep
+
+# A scratch checkout of histo_hmm, used by codegen/vendor_models.py.
+vendor/
+
+# ---------- Editors / OS / tooling ----------
+.claude/
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
