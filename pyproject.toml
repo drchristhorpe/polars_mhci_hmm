@@ -53,8 +53,13 @@ strip = true
 
 [dependency-groups]
 dev = [
-    "histo-hmm",
-    "numpy>=2.0",
+    # The parity suite compares against the real histo_hmm. It requires Python >= 3.12 while this
+    # package supports >= 3.10 (the abi3 floor), so without the marker uv's universal resolution
+    # rejects the whole set as unsatisfiable. The tests already skip parity when histo_hmm is
+    # absent, so on 3.10/3.11 you get the golden suite instead -- which is exactly what CI's
+    # abi3-floor job exercises.
+    "histo-hmm; python_version >= '3.12'",
+    "numpy>=2.0; python_version >= '3.12'",
     "pytest>=8",
     "maturin>=1.7",
 ]

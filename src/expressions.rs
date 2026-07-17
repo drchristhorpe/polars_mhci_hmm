@@ -107,7 +107,7 @@ fn classify_expr(inputs: &[Series], kwargs: ClassifyKwargs) -> PolarsResult<Seri
 
     let top_loci = build_top_loci(&results, &set)?;
 
-    let fields = vec![
+    let fields = [
         is_class_i.into_series(),
         confidence.into_series(),
         best_score.into_series(),

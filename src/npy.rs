@@ -56,7 +56,10 @@ pub fn parse(buf: &[u8]) -> Result<Npy, String> {
             if buf.len() < 12 {
                 return Err("truncated .npy header".into());
             }
-            (u32::from_le_bytes([buf[8], buf[9], buf[10], buf[11]]) as usize, 12)
+            (
+                u32::from_le_bytes([buf[8], buf[9], buf[10], buf[11]]) as usize,
+                12,
+            )
         }
         v => return Err(format!("unsupported .npy version {v}.x")),
     };
@@ -107,7 +110,11 @@ pub fn parse(buf: &[u8]) -> Result<Npy, String> {
 }
 
 /// Split `n` fixed-width little-endian scalars out of the data section.
-fn read_scalars<const W: usize>(body: &[u8], n: usize, dtype: &str) -> Result<Vec<[u8; W]>, String> {
+fn read_scalars<const W: usize>(
+    body: &[u8],
+    n: usize,
+    dtype: &str,
+) -> Result<Vec<[u8; W]>, String> {
     let need = n
         .checked_mul(W)
         .ok_or_else(|| "implausible .npy element count".to_string())?;

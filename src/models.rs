@@ -111,8 +111,8 @@ struct Manifest {
 
 fn read_manifest(dir: &Path) -> Result<Manifest, String> {
     let path = dir.join("manifest.json");
-    let text = std::fs::read_to_string(&path)
-        .map_err(|e| format!("reading {}: {e}", path.display()))?;
+    let text =
+        std::fs::read_to_string(&path).map_err(|e| format!("reading {}: {e}", path.display()))?;
     serde_json::from_str(&text).map_err(|e| format!("parsing {}: {e}", path.display()))
 }
 
@@ -134,7 +134,8 @@ fn read_background(dir: &Path) -> Result<Vec<f64>, String> {
 
 fn read_model(dir: &Path, name: &str) -> Result<Model, String> {
     let path = dir.join(format!("{name}.npz"));
-    let file = std::fs::File::open(&path).map_err(|e| format!("opening {}: {e}", path.display()))?;
+    let file =
+        std::fs::File::open(&path).map_err(|e| format!("opening {}: {e}", path.display()))?;
     let mut archive =
         zip::ZipArchive::new(file).map_err(|e| format!("{} is not a .npz: {e}", path.display()))?;
 
@@ -151,7 +152,10 @@ fn read_model(dir: &Path, name: &str) -> Result<Model, String> {
     }
     let l_signed = len_data[0];
     if l_signed < 1 {
-        return Err(format!("{}: model length {l_signed} is not positive", path.display()));
+        return Err(format!(
+            "{}: model length {l_signed} is not positive",
+            path.display()
+        ));
     }
     let l = l_signed as usize;
 
@@ -225,7 +229,11 @@ fn cache() -> &'static Cache {
 pub fn load(dir: &Path) -> Result<Arc<ModelSet>, String> {
     let key = dir.canonicalize().unwrap_or_else(|_| dir.to_path_buf());
 
-    if let Some(hit) = cache().lock().expect("model cache mutex poisoned").get(&key) {
+    if let Some(hit) = cache()
+        .lock()
+        .expect("model cache mutex poisoned")
+        .get(&key)
+    {
         return Ok(Arc::clone(hit));
     }
 

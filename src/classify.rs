@@ -121,8 +121,12 @@ fn normalise_scores(scores: &[f64]) -> Vec<f64> {
 }
 
 /// `_scores_to_confidence`: sigmoid of the best log-odds, clamped to ±50.
+///
+/// The clamp is the reference's overflow guard, not a modelling choice. `clamp` and the
+/// reference's `max(-50, min(50, x))` disagree on NaN, but a score is always finite or `-inf`
+/// (and the `-inf` case returns before reaching here), so the difference is unreachable.
 fn scores_to_confidence(best: f64) -> f64 {
-    let clamped = best.max(-CONFIDENCE_CLAMP).min(CONFIDENCE_CLAMP);
+    let clamped = best.clamp(-CONFIDENCE_CLAMP, CONFIDENCE_CLAMP);
     1.0 / (1.0 + (-clamped).exp())
 }
 
@@ -177,8 +181,14 @@ fn scan_sequence(encoded: &[i8], set: &ModelSet) -> Option<Best> {
                 (None, b) => b,
                 (a, None) => a,
                 (Some(a), Some(b)) => {
-                    // `>` mirrors the reference; on a tie the earlier window survives.
-                    let a_wins = a.score > b.score || (!(b.score > a.score) && a.idx < b.idx);
+                    let a_wins = match a.score.partial_cmp(&b.score) {
+                        Some(Ordering::Greater) => true,
+                        Some(Ordering::Less) => false,
+                        // Equal, or incomparable -- the latter needs a NaN, which a trained
+                        // model cannot produce. Either way the reference's strict `>` keeps
+                        // whichever window it reached first, so fall back to iteration order.
+                        _ => a.idx < b.idx,
+                    };
                     Some(if a_wins { a } else { b })
                 }
             },

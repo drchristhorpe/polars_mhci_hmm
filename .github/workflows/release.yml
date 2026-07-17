@@ -1,0 +1,184 @@
+name: Release
+
+# Publishes to PyPI when a v* tag is pushed:
+#
+#     git tag v0.1.0 && git push origin v0.1.0
+#
+# Uses PyPI Trusted Publishing (OIDC) -- there is no API token to create or store. See
+# RELEASING.md for the one-time PyPI setup.
+#
+# The extension is built as abi3 (>= 3.10), so we produce ONE wheel per platform/arch rather
+# than one per Python version.
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-version:
+    # A tag is just a label: nothing makes `v0.2.0` build version 0.2.0. Without this, tagging
+    # v0.2.0 while pyproject.toml still says 0.1.0 publishes 0.1.0 -- or fails at the upload
+    # because 0.1.0 already exists, after every wheel has been built. Catch it in ten seconds.
+    name: tag matches version
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare the tag against pyproject.toml and Cargo.toml
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          py=$(grep -m1 '^version = ' pyproject.toml | cut -d'"' -f2)
+          rs=$(grep -m1 '^version = ' Cargo.toml | cut -d'"' -f2)
+          echo "tag=$tag  pyproject=$py  cargo=$rs"
+          if [ "$tag" != "$py" ] || [ "$tag" != "$rs" ]; then
+            echo "::error::tag v$tag disagrees with pyproject.toml ($py) / Cargo.toml ($rs)"
+            exit 1
+          fi
+
+  wheels:
+    name: wheel (${{ matrix.platform.os }}-${{ matrix.platform.target }})
+    runs-on: ${{ matrix.platform.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - { os: linux, runner: ubuntu-22.04, target: x86_64 }
+          - { os: linux, runner: ubuntu-22.04, target: aarch64 }
+          # Both macOS wheels are built on Apple Silicon; the Intel one is cross-compiled.
+          # GitHub retired the Intel macOS runners, so a `macos-13` job simply sits in the
+          # queue forever without ever being assigned a runner -- it does not fail, it hangs.
+          - { os: macos, runner: macos-14, target: aarch64 }
+          - { os: macos, runner: macos-14, target: x86_64 }
+          - { os: windows, runner: windows-latest, target: x64 }
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10" # the abi3 floor
+
+      - name: Build wheel
+        uses: PyO3/maturin-action@v1
+        with:
+          target: ${{ matrix.platform.target }}
+          args: --release --out dist
+          manylinux: auto
+          sccache: "true"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheel-${{ matrix.platform.os }}-${{ matrix.platform.target }}
+          path: dist
+
+  sdist:
+    name: sdist
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build sdist
+        uses: PyO3/maturin-action@v1
+        with:
+          command: sdist
+          args: --out dist
+
+      - name: Check the models are actually in it
+        # The models are pulled in by an explicit `include` in pyproject.toml rather than by
+        # being importable Python, so an sdist that quietly omitted them would still build --
+        # and then fail at runtime for anyone installing from source.
+        run: |
+          n=$(tar -tzf dist/*.tar.gz | grep -c 'polars_mhci_hmm/models/.*\.npz' || true)
+          echo "sdist carries $n model archives"
+          if [ "$n" -ne 251 ]; then
+            echo "::error::sdist has $n .npz models, expected 251"
+            exit 1
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sdist
+          path: dist
+
+  smoke-test:
+    # Install the built wheel exactly as a user would, and check it actually classifies -- a
+    # wheel that imports but misclassifies, or that shipped without its models, would otherwise
+    # sail straight to PyPI. Asserted against the checked-in golden values, so this needs no
+    # histo_hmm and is a real check rather than a smoke signal.
+    name: smoke-test the built wheel
+    needs: [wheels]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12" # deliberately NOT the version it was built against
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: wheel-linux-x86_64
+          path: dist
+
+      - name: Install from the wheel and classify something
+        run: |
+          # Dependencies come from PyPI; polars-mhci-hmm itself must come from the built wheel
+          # and nowhere else -- hence --no-index --no-deps on the second command only. (Putting
+          # --no-index on the first would stop pip resolving polars at all.)
+          python -m pip install polars
+          python -m pip install --no-index --no-deps --find-links dist polars-mhci-hmm
+          python - <<'PY'
+          import json
+          import polars as pl
+          import polars_mhci_hmm
+
+          assert len(polars_mhci_hmm.loci()) == 251, "models missing from the wheel"
+
+          seqs = {s["name"]: s["sequence"] for s in
+                  json.load(open("tests/data/mhci_sequences.json"))["sequences"]}
+          golden = json.load(open("tests/data/golden.json"))
+          n_top = golden["generated_from"]["n_top"]
+
+          names = [c["name"] for c in golden["cases"]]
+          got = (
+              pl.DataFrame({"s": [seqs[n] for n in names]}, schema={"s": pl.String})
+              .select(pl.col("s").mhci.classify(n_top=n_top))
+              .to_series()
+              .to_list()
+          )
+
+          for want, mine in zip(golden["cases"], got):
+              label = want["name"]
+              assert mine["is_class_i"] == want["is_class_i"], f"{label}: is_class_i"
+              assert [d["locus"] for d in mine["top_loci"]] == \
+                     [d["locus"] for d in want["top_loci"]], f"{label}: locus order"
+              assert abs(mine["best_score"] - want["best_score"]) < 1e-9, f"{label}: best_score"
+
+          print(f"wheel OK: {len(got)} sequences match the golden values")
+          PY
+
+  publish:
+    name: publish to PyPI
+    needs: [check-version, wheels, sdist, smoke-test]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    environment:
+      name: pypi
+      url: https://pypi.org/p/polars-mhci-hmm
+
+    permissions:
+      id-token: write # required for Trusted Publishing
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: List what we are about to publish
+        run: ls -la dist/
+
+      - uses: pypa/gh-action-pypi-publish@release/v1

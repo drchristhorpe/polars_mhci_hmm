@@ -510,7 +510,6 @@
   "source": {
     "repo": "https://github.com/drchristhorpe/histo_hmm",
     "commit": "5cf4329cc80e53c2c6f1e7dc280559682a70441a",
-    "vendored_at": "2026-07-16T20:58:31Z",
     "note": "models copied byte-identical from histo_hmm; see codegen/vendor_models.py"
   }
 }

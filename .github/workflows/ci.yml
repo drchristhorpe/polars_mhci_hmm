@@ -1,0 +1,129 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: test (py${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # The extension is abi3, so one build serves every version -- but the *parity* tests run
+        # the real histo_hmm, which needs >= 3.12. These are the ends of the range where that is
+        # possible; the abi3 floor gets its own job below.
+        python-version: ["3.12", "3.14"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Build the extension and install
+        run: uv sync --python ${{ matrix.python-version }}
+
+      - name: Run tests
+        # Includes the differential test against a live histo_hmm across every test sequence --
+        # i.e. this job IS the correctness guarantee. The `slow` marker is deliberately NOT
+        # deselected: it covers the sliding-window scan, which has its own tie-breaking rules and
+        # is the one path where a parallelism bug would hide.
+        run: uv run --python ${{ matrix.python-version }} pytest -q
+
+  abi3-floor:
+    # The wheel claims abi3 >= 3.10, but histo_hmm needs >= 3.12, so 3.10 can never run parity.
+    # That is the point of this job: install the built wheel exactly as a user on the floor would,
+    # with polars and nothing else, and prove the plugin works and the suite still means something
+    # without the reference installed (the golden tests). It also catches the wheel silently
+    # depending on numpy or histo_hmm.
+    name: abi3 floor (py3.10, no histo_hmm)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Build the wheel
+        run: uv run --with maturin maturin build --release -o dist
+
+      - name: Install it on 3.10 with only polars alongside
+        run: |
+          uv venv --python 3.10
+          uv pip install --python .venv polars pytest
+          uv pip install --python .venv --no-deps --no-index --find-links dist polars-mhci-hmm
+
+      - name: Fail if histo_hmm or numpy came along
+        run: |
+          if .venv/bin/python -c "import histo_hmm" 2>/dev/null; then
+            echo "::error::the wheel pulled in histo_hmm; it must depend on polars alone"
+            exit 1
+          fi
+          if .venv/bin/python -c "import numpy" 2>/dev/null; then
+            echo "::error::the wheel pulled in numpy; it must depend on polars alone"
+            exit 1
+          fi
+
+      - name: Run the suite (parity tests skip; golden tests must not)
+        run: |
+          .venv/bin/python -m pytest -q | tee out.txt
+          # A green run that skipped *everything* would prove nothing, so assert the golden and
+          # integration tests actually ran.
+          if ! grep -qE "[0-9]+ passed" out.txt; then
+            echo "::error::no tests passed on the abi3 floor"
+            exit 1
+          fi
+
+  models-are-vendored:
+    # The 251 models are copied byte-identical from histo_hmm at the commit manifest.json names.
+    # Re-vendoring from that same commit is reproducible, so any diff here means the committed
+    # copy was hand-edited or corrupted. Pinning to the recorded commit -- rather than histo_hmm's
+    # HEAD -- keeps this deterministic: it does not start failing because upstream retrained.
+    name: vendored models match histo_hmm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+
+      - name: Re-vendor from the commit the manifest records
+        run: |
+          COMMIT=$(python -c "import json; print(json.load(open('python/polars_mhci_hmm/models/manifest.json'))['source']['commit'])")
+          echo "manifest records histo_hmm @ $COMMIT"
+          uv run --no-project --with numpy python codegen/vendor_models.py --commit "$COMMIT"
+
+      - name: Fail if the committed models differ
+        run: |
+          if ! git diff --exit-code --stat -- python/polars_mhci_hmm/models/; then
+            echo "::error::Vendored models do not match histo_hmm at the recorded commit. Re-run codegen/vendor_models.py and commit."
+            exit 1
+          fi
+
+  lint-rust:
+    name: rustfmt + clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - name: rustfmt
+        run: cargo fmt --check
+
+      - name: clippy
+        run: cargo clippy --all-targets -- -D warnings

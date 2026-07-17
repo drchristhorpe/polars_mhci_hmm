@@ -12,12 +12,19 @@ The only thing this script *generates* is `manifest.json`, which extends histo_h
   source    where these models came from, including the commit, so a vendored copy is
             traceable back to the checkout that produced it.
 
+Re-running this against the same histo_hmm commit is **byte-for-byte reproducible** -- there is
+deliberately no timestamp in the output, because the commit is the provenance and a timestamp
+would only make every re-vendor look like a change. CI relies on that: it re-vendors from the
+commit the manifest names and fails if anything differs, which catches a hand-edited or corrupted
+model without coupling the build to whatever histo_hmm's HEAD happens to be today.
+
 Both additions are backwards compatible: histo_hmm's own `load_models` reads `classes` and
 ignores the rest, so a vendored directory still works as a histo_hmm model dir.
 
 Run:  uv run python codegen/vendor_models.py --histo-hmm <path-to-checkout>
+      uv run python codegen/vendor_models.py --commit <sha>   # clone and pin to a commit
 
-Without --histo-hmm, a shallow clone is made into `vendor/histo_hmm` (gitignored).
+Without --histo-hmm, a clone is made into `vendor/histo_hmm` (gitignored).
 """
 
 from __future__ import annotations
@@ -27,7 +34,6 @@ import json
 import shutil
 import subprocess
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 import numpy as np
@@ -47,12 +53,24 @@ def _git(repo: Path, *args: str) -> str:
     ).stdout.strip()
 
 
-def _clone(dest: Path) -> Path:
+def _clone(dest: Path, commit: str | None) -> Path:
     if dest.exists():
         shutil.rmtree(dest)
     dest.parent.mkdir(parents=True, exist_ok=True)
     print(f"cloning {REPO} -> {dest}")
-    subprocess.run(["git", "clone", "--depth", "1", REPO, str(dest)], check=True)
+
+    if commit is None:
+        subprocess.run(["git", "clone", "--depth", "1", REPO, str(dest)], check=True)
+        return dest
+
+    # A shallow clone cannot check out an arbitrary older commit, so fetch just that one object
+    # rather than paying for the project's full history.
+    subprocess.run(["git", "init", "-q", str(dest)], check=True)
+    _git(dest, "remote", "add", "origin", REPO)
+    subprocess.run(
+        ["git", "fetch", "-q", "--depth", "1", "origin", commit], cwd=dest, check=True
+    )
+    _git(dest, "checkout", "-q", "FETCH_HEAD")
     return dest
 
 
@@ -94,11 +112,16 @@ def main() -> int:
         "--histo-hmm",
         type=Path,
         default=None,
-        help="path to a histo_hmm checkout (default: shallow-clone into vendor/histo_hmm)",
+        help="path to a histo_hmm checkout (default: clone into vendor/histo_hmm)",
+    )
+    ap.add_argument(
+        "--commit",
+        default=None,
+        help="pin the clone to this histo_hmm commit (ignored with --histo-hmm)",
     )
     args = ap.parse_args()
 
-    checkout = args.histo_hmm or _clone(ROOT / "vendor" / "histo_hmm")
+    checkout = args.histo_hmm or _clone(ROOT / "vendor" / "histo_hmm", args.commit)
     src = checkout / "src" / "histo_hmm" / "models"
     if not (src / "manifest.json").exists():
         raise SystemExit(f"no manifest.json under {src} -- is that a histo_hmm checkout?")
@@ -140,7 +163,6 @@ def main() -> int:
         "source": {
             "repo": REPO,
             "commit": commit,
-            "vendored_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
             "note": "models copied byte-identical from histo_hmm; see codegen/vendor_models.py",
         },
     }

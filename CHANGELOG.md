@@ -44,6 +44,17 @@ stays in `histo_hmm`, which needs MAFFT and only runs once.
   per rule of the faithfulness contract. Artefacts land in `tmp/`.
 - **`tools/validate.py`** — writes inspectable parity, assignment and benchmark artefacts to
   `tmp/`. `tools/make_test_data.py` and `tools/make_golden.py` regenerate the fixtures.
+- **CI** ([`ci.yml`](.github/workflows/ci.yml)) — the parity suite on Python 3.12 and 3.14 (the
+  ends of the range where `histo_hmm` installs); an **abi3-floor** job that installs the built
+  wheel on 3.10 with only polars beside it, proving both that the floor works and that the golden
+  tests keep the suite meaningful without the reference; a **vendored-models** job that re-vendors
+  from the commit the manifest names and fails on any diff; and rustfmt + clippy.
+- **Release** ([`release.yml`](.github/workflows/release.yml), [RELEASING.md](RELEASING.md)) —
+  push a `v*` tag and it builds one abi3 wheel per platform (Linux x86_64/aarch64, macOS
+  arm64/x86_64, Windows x64) plus an sdist, then publishes via PyPI Trusted Publishing. Before
+  publishing it checks the tag agrees with `pyproject.toml` and `Cargo.toml`, counts the 251
+  models in the sdist, and installs the wheel on a Python it was not built against to classify
+  every test sequence against the golden values.
 
 ### Performance
 
@@ -78,5 +89,15 @@ itself is only modestly faster than numba (0.68 vs 0.80 ms per model); most of t
   failed classification as a valid empty one.
 - `score()`'s documentation claimed an empty sequence scores 0.0; it returns the all-delete path
   score.
+- **`uv sync` failed outright** — the README's own build-from-source instruction. `histo_hmm`
+  requires Python ≥ 3.12 while this package supports ≥ 3.10, and uv resolves across the whole
+  `requires-python` range, so it rejected the set as unsatisfiable. The dev dependency now
+  carries a `python_version >= '3.12'` marker, which is what it always meant.
+- **`tmp/.gitkeep` was silently ignored**, so `tmp/` would not have existed in a fresh clone:
+  git does not descend into a directory excluded by `tmp/`, which makes the `!tmp/.gitkeep`
+  negation unreachable. Now `tmp/*` + `!tmp/.gitkeep`.
+- Vendoring is now byte-reproducible: the `vendored_at` timestamp is gone, since the recorded
+  commit is the real provenance and a timestamp made every re-vendor look like a change. This is
+  what lets CI verify the committed models by re-vendoring them.
 
 <!-- Entries below are appended as work lands; see PLAN.md §5 for the faithfulness contract. -->
